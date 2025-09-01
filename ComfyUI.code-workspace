@@ -1,0 +1,34 @@
+{
+    "folders": [
+        {
+            "name": "ComfyUI",
+            "path": "."
+        }
+    ],
+    "settings": {
+        "cursor.chat.history.enabled": true,
+        "cursor.chat.history.maxEntries": 100,
+        "cursor.chat.history.persist": true,
+        "cursor.chat.history.storagePath": "~/.cursor/chat_history",
+        "files.exclude": {
+            "**/__pycache__": true,
+            "**/*.pyc": true,
+            "**/.DS_Store": true,
+            "**/venv": true,
+            "**/.venv": true,
+            "**/models": true,
+            "**/output": true,
+            "**/temp": true
+        },
+        "python.defaultInterpreterPath": "./.venv/bin/python",
+        "python.terminal.activateEnvironment": true
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-python.python",
+            "ms-python.black-formatter",
+            "ms-python.flake8"
+        ]
+    }
+}
+

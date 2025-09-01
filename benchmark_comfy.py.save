@@ -1,0 +1,77 @@
+
+
+-[₩nano ~/ComfyUI/benchmark_comfy.py
+    subprocess.run([
+        "python", "main.py",
+        "--workflow", "input/benchmark_sdxl.json"
+    ])
+
+    end = time.time()
+    print(f"✅ {device.upper()} run completed in {end - start:.2f} seconds")
+
+run_comfy_workflow("mps")
+run_comfy_workflow("cpu")
+
+
+alias comfybench='cd ~/ComfyUI && source .venv/bin/activate && python benchmark_comfy.py'
+
+source ~/.zshrc
+
+
+with open("benchmark_results.txt", "a") as f:
+    f.write(f"{device.upper()} run: {end - start:.2f} seconds\n")
+
+from time import time
+
+for epoch in range(5):  # Adjust as needed
+    start = time()
+    running_loss = 0.0
+    for inputs, labels in train_loader:
+        inputs, labels = inputs.to(device), labels.to(device)
+
+        optimizer.zero_grad()
+        outputs = model(inputs)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+
+        running_loss += loss.item()
+    end = time()
+    print(f"Epoch {epoch+1} - Loss: {running_loss:.4f} - Time: {end - start:.2f}s")
+
+for param in model.parameters():
+    param.requires_grad = False
+
+for param in model.fc.parameters():
+    param.requires_grad = True
+
+torch.save(model.state_dict(), "resnet18_binary.pth")
+# Later...
+model.load_state_dict(torch.load("resnet18_binary.pth"))
+model.eval()
+
+exit()
+
+import time
+import torch
+import subprocess
+
+def run_comfy_workflow(device):
+    print(f"\n🔁 Running on {device.upper()}...")
+    torch_device = torch.device("mps" if device == "mps" else "cpu")
+    torch.set_default_device(torch_device)
+
+    start = time.time()
+    subprocess.run([
+        "python", "main.py",
+        "--workflow", "input/benchmark_sdxl.json"
+    ])
+    end = time.time()
+
+    print(f"✅ {device.upper()} run completed in {end - start:.2f} seconds")
+
+# Run both benchmarks
+run_comfy_workflow("mps")
+run_comfy_workflow("cpu")
+
+

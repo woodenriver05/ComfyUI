@@ -1,0 +1,200 @@
+{
+  "3": {
+    "inputs": {
+      "seed": 596773458321291,
+      "steps": 12,
+      "cfg": 5.5,
+      "sampler_name": "dpmpp_2s_ancestral",
+      "scheduler": "normal",
+      "denoise": 0.25,
+      "model": [
+        "34",
+        0
+      ],
+      "positive": [
+        "6",
+        0
+      ],
+      "negative": [
+        "7",
+        0
+      ],
+      "latent_image": [
+        "23",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "6": {
+    "inputs": {
+      "text": "a cinematic photo of a women wearing wedding dress ",
+      "clip": [
+        "34",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "7": {
+    "inputs": {
+      "text": "blurry, distorted, low quality, ugly",
+      "clip": [
+        "34",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "8": {
+    "inputs": {
+      "samples": [
+        "3",
+        0
+      ],
+      "vae": [
+        "34",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "9": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "44",
+        1
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "22": {
+    "inputs": {
+      "image": "1755629457 (1).jpg"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "23": {
+    "inputs": {
+      "pixels": [
+        "22",
+        0
+      ],
+      "vae": [
+        "34",
+        2
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "24": {
+    "inputs": {
+      "images": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "34": {
+    "inputs": {
+      "ckpt_name": "sd_xl_base_1.0_0.9vae.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "44": {
+    "inputs": {
+      "weight": 1,
+      "weight_faceidv2": 1,
+      "weight_type": "linear",
+      "combine_embeds": "concat",
+      "start_at": 0,
+      "end_at": 1,
+      "embeds_scaling": "V only",
+      "model": [
+        "34",
+        0
+      ],
+      "ipadapter": [
+        "53",
+        0
+      ],
+      "image": [
+        "22",
+        0
+      ],
+      "image_negative": [
+        "22",
+        0
+      ],
+      "clip_vision": [
+        "49",
+        0
+      ],
+      "insightface": [
+        "52",
+        0
+      ]
+    },
+    "class_type": "IPAdapterFaceID",
+    "_meta": {
+      "title": "IPAdapter FaceID"
+    }
+  },
+  "49": {
+    "inputs": {
+      "clip_name": "clip_vision_h.safetensors"
+    },
+    "class_type": "CLIPVisionLoader",
+    "_meta": {
+      "title": "Load CLIP Vision"
+    }
+  },
+  "52": {
+    "inputs": {
+      "provider": "CPU",
+      "model_name": "buffalo_l"
+    },
+    "class_type": "IPAdapterInsightFaceLoader",
+    "_meta": {
+      "title": "IPAdapter InsightFace Loader"
+    }
+  },
+  "53": {
+    "inputs": {
+      "ipadapter_file": "ip-adapter-faceid-plus_sd15_lora.safetensors"
+    },
+    "class_type": "IPAdapterModelLoader",
+    "_meta": {
+      "title": "IPAdapter Model Loader"
+    }
+  }
+}
